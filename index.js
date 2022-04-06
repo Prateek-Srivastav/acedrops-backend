@@ -57,7 +57,7 @@ get all orders of your products, accept and reject orders, get all previous orde
 
 app.use("/admin", adminRoutes);
 app.get("/", function (req, res) {
-  res.json({ name: "Acedrops will be here!" });
+  res.json("Acedrops will be here soon!");
 });
 
 app.use((error, req, res, next) => {
