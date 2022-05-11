@@ -1,29 +1,29 @@
-const express = require('express');
+const express = require("express");
 
-const userControllers = require('../controllers/user');
-const isAuth = require('../middleware/isAuth');
-const noAuth = require('../middleware/noAuth');
+const userControllers = require("../controllers/user");
+const isAuth = require("../middleware/isAuth");
+const noAuth = require("../middleware/noAuth");
 
 const router = express.Router();
 
-router.post('/search', noAuth, userControllers.search);
+router.post("/search", noAuth, userControllers.search);
 
-router.post('/reviews/:prodId', isAuth, userControllers.rate);
+router.post("/reviews/:prodId", isAuth, userControllers.rate);
 
-router.post('/addAddress', isAuth, userControllers.addAddress);
+router.post("/addAddress", isAuth, userControllers.addAddress);
 
-router.post('/addPhno', isAuth, userControllers.addPhno);
+router.post("/addPhno", isAuth, userControllers.addPhno);
 
-router.get('/getAddress', isAuth, userControllers.getAddress);
+router.get("/getAddress", isAuth, userControllers.getAddress);
 
-router.get('/getPhno', isAuth, userControllers.getPhno);
+router.get("/getPhno", isAuth, userControllers.getPhno);
 
-router.post('/orderCart', isAuth, userControllers.orderCart);
+router.post("/orderCart", isAuth, userControllers.orderCart);
 
-router.post('/orderProd', isAuth, userControllers.orderProd);
+router.post("/orderProd", isAuth, userControllers.orderProd);
 
-router.post('/cancelOrder/:orderId', isAuth, userControllers.cancelOrder);
+router.post("/cancelOrder/:orderId", isAuth, userControllers.cancelOrder);
 
-router.get('/getOrders', isAuth, userControllers.getOrders);
+router.get("/getOrders", isAuth, userControllers.getOrders);
 
 module.exports = router;

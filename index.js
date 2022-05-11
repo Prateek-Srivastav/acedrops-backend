@@ -56,6 +56,7 @@ app.use("/seller", sellerRoutes);
 get all orders of your products, accept and reject orders, get all previous orders*/
 
 app.use("/admin", adminRoutes);
+
 app.get("/", function (req, res) {
   res.json("Acedrops will be here soon!");
 });
@@ -73,6 +74,7 @@ shop.hasMany(product, {
   onUpdate: "CASCADE",
   onDelete: "CASCADE",
 });
+
 product.belongsTo(shop);
 
 shop.hasMany(imgUrl, {

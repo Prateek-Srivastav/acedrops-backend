@@ -1,23 +1,30 @@
-const Sequelize = require('sequelize');
-const sequelize = require('../utils/db');
+const Sequelize = require("sequelize");
+const sequelize = require("../utils/db");
+
 const order_item = sequelize.define(
-    'order_item',{
-        id: {
-            type: Sequelize.INTEGER,
-            autoIncrement: true,
-            primaryKey: true,
-            allowNull: false
-        },
-        quantity: {
-            type: Sequelize.INTEGER,
-            allowNull: false
-        },
-        status: {
-            type: Sequelize.STRING,
-            defaultValue: 'processing'
-        }
-    }, {
-    tableName: 'order_item'
-});
+  "order_item",
+  {
+    id: {
+      type: Sequelize.INTEGER,
+      autoIncrement: true,
+      primaryKey: true,
+      allowNull: false,
+    },
+    quantity: {
+      type: Sequelize.INTEGER,
+      allowNull: false,
+    },
+    status: {
+      type: Sequelize.STRING,
+      defaultValue: "processing",
+    },
+    customizationText: {
+      type: Sequelize.STRING,
+    },
+  },
+  {
+    tableName: "order_item",
+  }
+);
 
 module.exports = order_item;
