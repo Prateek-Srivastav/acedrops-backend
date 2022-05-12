@@ -175,7 +175,8 @@ sequelize
     return cat;
   })
   .then((cat) => {
-    app.listen(process.env.PORT || 3000);
+    const port = process.env.PORT || 3000;
+    app.listen(port, () => console.log(`Server started on port ${port}`));
   })
   .catch((err) => {
     console.log(err);
