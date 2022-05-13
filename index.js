@@ -27,6 +27,8 @@ const product_category = require("./models/product_category");
 const address = require("./models/address");
 const viewed = require("./models/viewed");
 
+app.use(express.static(__dirname + "/public"));
+
 app.use(express.json());
 
 app.use(express.urlencoded({ extended: true }));
@@ -59,10 +61,10 @@ get all orders of your products, accept and reject orders, get all previous orde
 
 app.use("/admin", adminRoutes);
 
-app.get("/", function (req, res) {
-  // res.json("Acedrops will be here soon!");
-  res.sendFile(path.join(__dirname + "/public/index.html"));
-});
+// app.get("/", function (req, res) {
+//   // res.json("Acedrops will be here soon!");
+//   res.sendFile(path.join(__dirname + "/public/index.html"));
+// });
 
 app.use((error, req, res, next) => {
   console.log(error);
