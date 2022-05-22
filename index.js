@@ -73,6 +73,13 @@ app.use((error, req, res, next) => {
   res.status(status).json({ message: message });
 });
 
+app.get("/privacyPolicy", (req, res, next) => {
+  // res.json();
+  // express.static(__dirname + "/docs/privacyPolicy")
+  // express.static(__dirname + "/docs/privacyPolicy")
+  res.sendFile(__dirname + "/docs/privacyPolicy.html");
+});
+
 shop.hasMany(product, {
   foreignKey: "shopId",
   constraints: false,
