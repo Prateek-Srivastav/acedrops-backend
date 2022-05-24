@@ -38,12 +38,15 @@ exports.send_mail = (email, name, otp, text) => {
 //for any other information
 
 exports.general_mail = (email, name, sub, text) => {
-  transporter.sendMail({
-    from: "info.acedrops@gmail.com",
-    to: email,
-    subject: sub,
-    text: "Hello " + name + ",\n\n" + text + "\n\nThank You!\n",
-  });
+  transEmailApi
+    .sendTransacEmail({
+      sender: sender,
+      to: [{ email: email }],
+      subject: sub,
+      textContent: "Hello " + name + ",\n\n" + text + "\n\nThank You!\n",
+    })
+    .then(console.log)
+    .catch(console.log);
 };
 
 // module.exports = send_mail;

@@ -30,7 +30,7 @@ exports.verifyShop = async (req, res, next) => {
       shop.email,
       shop.name,
       "shop verification status",
-      "you are now a verified seller"
+      "You are now a verified seller"
     );
     return res.status(200).json({ message: "verified" });
   } catch (err) {
