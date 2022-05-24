@@ -1,109 +1,110 @@
-const express = require('express');
-const { body } = require('express-validator');
+const express = require("express");
+const { body } = require("express-validator");
 
-const authController = require('../controllers/auth');
-const isAuthGoogle = require('../middleware/isAuthGoogle');
+const authController = require("../controllers/auth");
+const isAuthGoogle = require("../middleware/isAuthGoogle");
 
 const router = express.Router();
 
-router.post('/signup',[
-    body('email')
-        .trim()
-        .isEmail()
-        .withMessage('please enter a valid email')
-        .normalizeEmail(),
-    body('name')
-        .trim()
-        .not()
-        .isEmpty()
-        .withMessage('please enter your name')
-        .isLength({ max: 50 })
-        .withMessage('name is too long!! only 50 characters are allowed')
-    ], authController.signup);
+router.post(
+  "/signup",
+  [
+    body("email").trim().isEmail().withMessage("please enter a valid email"),
 
-router.post('/signup/verify',[
-    body('email')
-        .trim()
-        .isEmail()
-        .withMessage('please enter a valid email')
-        .normalizeEmail(),
-    body('name')
-        .trim()
-        .not()
-        .isEmpty()
-        .withMessage('please enter your name')
-        .isLength({ max: 50 })
-        .withMessage('name is too long!! only 50 characters are allowed'),
-    body('password')
-        .trim()
-        .isLength({ min: 8 })
-        .withMessage('password must be atleast 8 characters long')
-        .isLength({ max: 50 })
-        .withMessage('password must be at-max 50 characters long')
-    ], authController.signup_verify);
+    body("name")
+      .trim()
+      .not()
+      .isEmpty()
+      .withMessage("please enter your name")
+      .isLength({ max: 50 })
+      .withMessage("name is too long!! only 50 characters are allowed"),
+  ],
+  authController.signup
+);
 
-router.post('/generateToken', authController.generate_access_token);
+router.post(
+  "/signup/verify",
+  [
+    body("email").trim().isEmail().withMessage("please enter a valid email"),
 
-router.post('/logout', authController.logout);
+    body("name")
+      .trim()
+      .not()
+      .isEmpty()
+      .withMessage("please enter your name")
+      .isLength({ max: 50 })
+      .withMessage("name is too long!! only 50 characters are allowed"),
+    body("password")
+      .trim()
+      .isLength({ min: 8 })
+      .withMessage("password must be atleast 8 characters long")
+      .isLength({ max: 50 })
+      .withMessage("password must be at-max 50 characters long"),
+  ],
+  authController.signup_verify
+);
 
-router.post('/login', [
-    body('email')
-        .trim()
-        .isEmail()
-        .withMessage('please enter a valid email')
-        .normalizeEmail(),
-    body('password')
-        .trim()
-        .isLength({ min: 8 })
-        .withMessage('password must be atleast 8 characters long')
-        .isLength({ max: 50 })
-        .withMessage('password must be at-max 50 characters long'),
-    ],authController.login);
+router.post("/generateToken", authController.generate_access_token);
 
-router.post('/signupGoogle', isAuthGoogle, authController.googleSignup);
+router.post("/logout", authController.logout);
 
-router.post('/forgotPass', [
-    body('email')
-        .trim()
-        .isEmail()
-        .withMessage('please enter a valid email')
-        .normalizeEmail()
-], authController.forgotPass);
+router.post(
+  "/login",
+  [
+    body("email").trim().isEmail().withMessage("please enter a valid email"),
 
-router.post('/forgotPassVerify', [
-    body('email')
-        .trim()
-        .isEmail()
-        .withMessage('please enter a valid email')
-        .normalizeEmail()
-], authController.forgotPassVerify);
+    body("password")
+      .trim()
+      .isLength({ min: 8 })
+      .withMessage("password must be atleast 8 characters long")
+      .isLength({ max: 50 })
+      .withMessage("password must be at-max 50 characters long"),
+  ],
+  authController.login
+);
 
-router.post('/newpass', [
-    body('email')
-        .trim()
-        .isEmail()
-        .withMessage('please enter a valid email')
-        .normalizeEmail(),
-    body('newpass')
-        .trim()
-        .isLength({ min: 8 })
-        .withMessage('password must be atleast 8 characters long')
-        .isLength({ max: 50 })
-        .withMessage('password must be at-max 50 characters long'),
-], authController.newpass);
+router.post("/signupGoogle", isAuthGoogle, authController.googleSignup);
 
-router.post('/changePass', [
-    body('email')
-        .trim()
-        .isEmail()
-        .withMessage('please enter a valid email')
-        .normalizeEmail(),
-    body('newpass')
-        .trim()
-        .isLength({ min: 8 })
-        .withMessage('password must be atleast 8 characters long')
-        .isLength({ max: 50 })
-        .withMessage('password must be at-max 50 characters long'),
-], authController.changePass);
-    
+router.post(
+  "/forgotPass",
+  [body("email").trim().isEmail().withMessage("please enter a valid email")],
+  authController.forgotPass
+);
+
+router.post(
+  "/forgotPassVerify",
+  [body("email").trim().isEmail().withMessage("please enter a valid email")],
+  authController.forgotPassVerify
+);
+
+router.post(
+  "/newpass",
+  [
+    body("email").trim().isEmail().withMessage("please enter a valid email"),
+
+    body("newpass")
+      .trim()
+      .isLength({ min: 8 })
+      .withMessage("password must be atleast 8 characters long")
+      .isLength({ max: 50 })
+      .withMessage("password must be at-max 50 characters long"),
+  ],
+  authController.newpass
+);
+
+router.post(
+  "/changePass",
+  [
+    body("email").trim().isEmail().withMessage("please enter a valid email"),
+
+    body("newpass")
+      .trim()
+      .isLength({ min: 8 })
+      .withMessage("password must be atleast 8 characters long")
+      .isLength({ max: 50 })
+      .withMessage("password must be at-max 50 characters long"),
+  ],
+  authController.changePass
+);
+
 module.exports = router;

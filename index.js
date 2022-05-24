@@ -61,11 +61,6 @@ get all orders of your products, accept and reject orders, get all previous orde
 
 app.use("/admin", adminRoutes);
 
-// app.get("/", function (req, res) {
-//   // res.json("Acedrops will be here soon!");
-//   res.sendFile(path.join(__dirname + "/public/index.html"));
-// });
-
 app.use((error, req, res, next) => {
   console.log(error);
   const status = error.statusCode || 500;
@@ -74,9 +69,6 @@ app.use((error, req, res, next) => {
 });
 
 app.get("/privacyPolicy", (req, res, next) => {
-  // res.json();
-  // express.static(__dirname + "/docs/privacyPolicy")
-  // express.static(__dirname + "/docs/privacyPolicy")
   res.sendFile(__dirname + "/docs/privacyPolicy.html");
 });
 

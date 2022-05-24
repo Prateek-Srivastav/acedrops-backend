@@ -397,6 +397,7 @@ exports.forgotPass = async (req, res, next) => {
       upperCaseAlphabets: false,
       specialChars: false,
     });
+
     mailer.send_mail(email, newUser.name, otp, "forgot password otp");
 
     let existing_otp = await Otp.findOne({ where: { email: email } });
