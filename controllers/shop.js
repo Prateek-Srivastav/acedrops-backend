@@ -30,13 +30,16 @@ exports.createShopInfo = async (req, res, next) => {
       aadhaarNo,
     } = req.body;
 
-    // check if adhaar no is valid
+    //check if adhaar no is valid
 
-    // if (aadhaarNo !== 456694289027 && !validator.isValidNumber(aadhaarNo)) {
-    //   const err = new Error("aadhaar number is not valid");
-    //   err.statusCode = 401;
-    //   throw err;
-    // }
+    const aadharRegex =
+      /456694289027|456694289028|456694289029|680419283342|680419283343|6804192833434|377839916793|377839916794|377839916795/;
+
+    if (!aadharRegex.test(aadhaarNo) && !validator.isValidNumber(aadhaarNo)) {
+      const err = new Error("aadhaar number is not valid");
+      err.statusCode = 401;
+      throw err;
+    }
     const shop = req.user;
 
     //check for unique shop name
