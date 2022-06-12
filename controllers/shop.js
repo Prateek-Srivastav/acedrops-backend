@@ -30,7 +30,7 @@ exports.createShopInfo = async (req, res, next) => {
       aadhaarNo,
     } = req.body;
 
-    //check if adhaar no is valid
+    // check if adhaar no is valid
 
     // if (aadhaarNo !== 456694289027 && !validator.isValidNumber(aadhaarNo)) {
     //   const err = new Error("aadhaar number is not valid");
