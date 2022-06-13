@@ -33,7 +33,7 @@ exports.createShopInfo = async (req, res, next) => {
     //check if adhaar no is valid
 
     const aadharRegex =
-      /456694289027|456694289028|456694289029|680419283342|680419283343|6804192833434|377839916793|377839916794|377839916795/;
+      /456694289027|456694289028|456694289029|680419283342|680419283343|680419283344|377839916793|377839916794|377839916795/;
 
     if (!aadharRegex.test(aadhaarNo) && !validator.isValidNumber(aadhaarNo)) {
       const err = new Error("aadhaar number is not valid");
