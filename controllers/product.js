@@ -311,7 +311,7 @@ exports.addToCart = async (req, res, next) => {
       err.statusCode = 400;
       throw err;
     }
-    const { prodId, customizationText } = req.body;
+    const { prodId, customizationText, isAddingCustomization } = req.body;
     let prod,
       newQuantity = 1;
     let cart = await req.user.getCart();
@@ -324,11 +324,19 @@ exports.addToCart = async (req, res, next) => {
 
     //check if the given product already exists in cart and increase its quantity
 
-    if (prod) {
+    if (prod && !isAddingCustomization) {
       const oldQuantity = prod.cart_item.quantity;
       newQuantity = oldQuantity + 1;
       await cart.addProduct(prod, { through: { quantity: newQuantity } });
       await cart.increment({ price: prod.discountedPrice });
+    }
+
+    //add customization text without incrementing quantity
+
+    if (prod && isAddingCustomization) {
+      await cart.addProduct(prod, {
+        through: { customizationText },
+      });
     }
 
     //add prod in cart if it does not already exists
@@ -345,14 +353,12 @@ exports.addToCart = async (req, res, next) => {
         throw err;
       }
     }
-    return res
-      .status(200)
-      .json({
-        price: cart.price,
-        quantity: newQuantity,
-        prodId: prodId,
-        customizationText,
-      });
+    return res.status(200).json({
+      price: cart.price,
+      quantity: newQuantity,
+      prodId: prodId,
+      customizationText,
+    });
   } catch (err) {
     if (!err.statusCode) err.statusCode = 500;
     next(err);
