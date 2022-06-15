@@ -39,7 +39,7 @@ router.get("/viewProd/:prodId", noAuth, productController.viewOneProd);
 
 router.get("/category/:category", noAuth, productController.categoryWise);
 
-router.post("/addToCart", productController.addToCart);
+router.post("/addToCart", isAuth, productController.addToCart);
 
 router.post("/removeFromCart", isAuth, productController.removeFromCart);
 
