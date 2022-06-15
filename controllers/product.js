@@ -311,7 +311,7 @@ exports.addToCart = async (req, res, next) => {
       err.statusCode = 400;
       throw err;
     }
-    const { prodId } = req.body;
+    const { prodId, customizationText } = req.body;
     let prod,
       newQuantity = 1;
     let cart = await req.user.getCart();
@@ -335,7 +335,9 @@ exports.addToCart = async (req, res, next) => {
     else {
       let prodInDb = await product.findByPk(prodId);
       if (prodInDb) {
-        await cart.addProduct(prodInDb, { through: { quantity: newQuantity } });
+        await cart.addProduct(prodInDb, {
+          through: { quantity: newQuantity, customizationText },
+        });
         await cart.increment({ price: prodInDb.discountedPrice });
       } else {
         const err = new Error("product does not exists");
@@ -345,7 +347,12 @@ exports.addToCart = async (req, res, next) => {
     }
     return res
       .status(200)
-      .json({ price: cart.price, quantity: newQuantity, prodId: prodId });
+      .json({
+        price: cart.price,
+        quantity: newQuantity,
+        prodId: prodId,
+        customizationText,
+      });
   } catch (err) {
     if (!err.statusCode) err.statusCode = 500;
     next(err);
