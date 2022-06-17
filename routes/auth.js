@@ -52,7 +52,6 @@ router.post(
   "/login",
   [
     body("email").trim().isEmail().withMessage("please enter a valid email"),
-
     body("password")
       .trim()
       .isLength({ min: 8 })

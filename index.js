@@ -87,13 +87,16 @@ shop.hasMany(imgUrl, {
   onUpdate: "CASCADE",
   onDelete: "CASCADE",
 });
+
 imgUrl.belongsTo(shop);
+
 product.hasMany(imgUrl, {
   foreignKey: "productId",
   constraints: false,
   onUpdate: "CASCADE",
   onDelete: "CASCADE",
 });
+
 imgUrl.belongsTo(product);
 
 user.belongsToMany(product, { through: fav, constraints: false });

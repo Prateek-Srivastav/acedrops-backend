@@ -33,7 +33,7 @@ exports.createProduct = async (req, res, next) => {
         "please fill application form and wait for verification"
       );
       err.statusCode = 400;
-      throw err;
+      res.send("Your shop is not verified, you can't add product.").status(400);
     }
     const {
       stock,
