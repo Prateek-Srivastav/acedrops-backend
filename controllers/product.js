@@ -29,11 +29,9 @@ exports.createProduct = async (req, res, next) => {
 
     const shop = req.user;
     if (!shop.isVerified) {
-      const err = new Error(
-        "please fill application form and wait for verification"
-      );
-      err.statusCode = 400;
-      res.send("Your shop is not verified, you can't add product.").status(400);
+      return res
+        .send("Your shop is not verified, you can't add product.")
+        .status(400);
     }
     const {
       stock,
