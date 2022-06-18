@@ -22,6 +22,12 @@ router.post("/orderCart", isAuth, userControllers.orderCart);
 
 router.post("/orderProd", isAuth, userControllers.orderProd);
 
+router.put(
+  "/changeOrderPaymentStatus",
+  isAuth,
+  userControllers.changeOrderPaymentStatus
+);
+
 router.post("/cancelOrder/:orderId", isAuth, userControllers.cancelOrder);
 
 router.get("/getOrders", isAuth, userControllers.getOrders);

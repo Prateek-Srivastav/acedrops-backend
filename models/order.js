@@ -17,6 +17,13 @@ const order = sequelize.define(
       type: Sequelize.STRING,
       defaultValue: "processing",
     },
+    paymentMode: {
+      type: Sequelize.STRING,
+    },
+    paymentStatus: {
+      type: Sequelize.STRING,
+      defaultValue: "pending",
+    },
   },
   {
     tableName: "order",

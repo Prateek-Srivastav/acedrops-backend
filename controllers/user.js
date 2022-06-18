@@ -206,23 +206,18 @@ exports.orderCart = async (req, res, next) => {
   try {
     //check if phone number is filled by user
 
-    if (!req.user.phno) {
-      const err = new Error("add phone number");
-      err.statusCode = 300;
-      throw err;
-    }
+    if (!req.user.phno)
+      return res.status(400).json("Please add phone number to your profile.");
 
     //check if address is already saved
 
-    const { addressId } = req.body;
+    const { addressId, paymentMode } = req.body;
     const addr = await address.findOne({
       where: { [Op.and]: [{ id: addressId }, { userId: req.user.id }] },
     });
-    if (!addr) {
-      const err = new Error("add address");
-      err.statusCode = 301;
-      throw err;
-    }
+
+    if (!addr)
+      return res.status(400).json("Please add address to your profile.");
 
     const cart = await req.user.getCart();
     if (cart) {
@@ -233,6 +228,8 @@ exports.orderCart = async (req, res, next) => {
         const userOrder = await req.user.createOrder({
           price: cart.price,
           addressId: addr.id,
+          paymentMode,
+          paymentStatus: paymentMode === "pod" ? "pod pending" : "pending",
         });
 
         await userOrder.addProducts(
@@ -289,23 +286,20 @@ exports.orderProd = async (req, res, next) => {
   try {
     //add phone number
 
-    if (!req.user.phno) {
-      const err = new Error("add phone number");
-      err.statusCode = 401;
-      throw err;
-    }
+    if (!req.user.phno)
+      return res.status(400).json("Please add phone number to your profile.");
 
     //add address
 
-    let { addressId, quantity, prodId, customizationText } = req.body;
+    let { addressId, quantity, prodId, customizationText, paymentMode } =
+      req.body;
     const addr = await address.findOne({
       where: { [Op.and]: [{ id: addressId }, { userId: req.user.id }] },
     });
-    if (!addr) {
-      const err = new Error("add address");
-      err.statusCode = 402;
-      throw err;
-    }
+
+    if (!addr)
+      return res.status(400).json("Please add address to your profile.");
+
     const prod = await product.findByPk(prodId);
 
     //find single product and check stock
@@ -331,6 +325,8 @@ exports.orderProd = async (req, res, next) => {
       const orderedProd = await req.user.createOrder({
         price: price,
         addressId: addr.id,
+        paymentMode,
+        paymentStatus: paymentMode === "pod" ? "pod pending" : "pending",
       });
 
       await order_item.create({
@@ -346,6 +342,25 @@ exports.orderProd = async (req, res, next) => {
     const err = new Error("something went wrong");
     err.statusCode = 400;
     throw err;
+  } catch (err) {
+    if (!err.statusCode) err.statusCode = 500;
+    next(err);
+  }
+};
+
+exports.changeOrderPaymentStatus = async (req, res, next) => {
+  try {
+    const { orderId } = req.params;
+    const order = await req.user.getOrders({ where: { id: orderId } });
+
+    //check if order exists
+
+    if (order.length === 0) return res.status(404).json("Order not found.");
+
+    //change order payment status
+
+    await order[0].update({ paymentStatus: "successful" });
+    return res.status(200).json(order);
   } catch (err) {
     if (!err.statusCode) err.statusCode = 500;
     next(err);
