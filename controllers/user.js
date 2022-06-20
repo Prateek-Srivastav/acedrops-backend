@@ -374,6 +374,7 @@ exports.getOrders = async (req, res, next) => {
     //return all orders of user
 
     const orders = await req.user.getOrders({
+      where: { paymentStatus: { [Op.ne]: "pending" } },
       include: [
         {
           model: product,
