@@ -18,7 +18,8 @@ const order = sequelize.define(
       defaultValue: "processing",
     },
     paymentMode: {
-      type: Sequelize.STRING,
+      type: Sequelize.ENUM,
+      values: ["pod", "online"],
     },
     paymentStatus: {
       type: Sequelize.STRING,

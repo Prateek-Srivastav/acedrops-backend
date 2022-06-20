@@ -207,7 +207,9 @@ exports.orderCart = async (req, res, next) => {
     //check if phone number is filled by user
 
     if (!req.user.phno)
-      return res.status(400).json("Please add phone number to your profile.");
+      return res
+        .status(400)
+        .json({ error: "Please add phone number to your profile." });
 
     //check if address is already saved
 
