@@ -2,7 +2,7 @@ const imgUrl = require("../models/imgUrl");
 const shop = require("../models/shop");
 const product = require("../models/product");
 const categories = require("../models/categories");
-const { Op, Error } = require("sequelize");
+const { Op, Error, or } = require("sequelize");
 const order = require("../models/order");
 const order_item = require("../models/order_item");
 const cart_item = require("../models/cart_item");
@@ -361,7 +361,11 @@ exports.changeOrderPaymentStatus = async (req, res, next) => {
 
     //change order payment status
 
-    await order[0].update({ paymentStatus: "successful" });
+    if (order[0].paymentMode === "online")
+      await order[0].update({ paymentStatus: "online successful" });
+    else if (order[0].paymentMode === "pod")
+      await order[0].update({ paymentStatus: "pod successful" });
+
     return res.status(200).json(order);
   } catch (err) {
     if (!err.statusCode) err.statusCode = 500;

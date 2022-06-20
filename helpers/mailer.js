@@ -1,12 +1,5 @@
 const nodemailer = require("nodemailer");
 const Sib = require("sib-api-v3-sdk");
-// const nodemailersendgrid = require("nodemailer-sendgrid-transport");
-
-// const transporter = nodemailer.createTransport(
-//   nodemailersendgrid({
-//     auth: { api_key: process.env.API_KEY },
-//   })
-// );
 
 const client = Sib.ApiClient.instance;
 
