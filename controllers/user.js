@@ -361,6 +361,9 @@ exports.changeOrderPaymentStatus = async (req, res, next) => {
 
     //change order payment status
 
+    console.log(order);
+    console.log(orderId + "orderIddddddddddddddddddddddddddddddddddddd");
+
     if (order[0].paymentMode === "online")
       await order[0].update({ paymentStatus: "online successful" });
     else if (order[0].paymentMode === "pod")
