@@ -23,7 +23,7 @@ const order = sequelize.define(
     },
     paymentStatus: {
       type: Sequelize.ENUM,
-      values: ["pending", "online successful", "pod successful"],
+      values: ["pending", "pod pending", "online successful", "pod successful"],
     },
   },
   {

@@ -91,6 +91,7 @@ exports.getOrders = async (req, res, next) => {
         {
           model: order,
           where: { status: "processing" },
+          where: { paymentStatus: { [Op.ne]: "pending" } },
           attributes: ["id"],
           through: { where: { status: "processing" } },
           include: [
@@ -126,6 +127,7 @@ exports.getPrevOrders = async (req, res, next) => {
         {
           model: order,
           attributes: ["id", "status"],
+          where: { paymentStatus: { [Op.ne]: "pending" } },
           through: { where: { status: ["accepted", "rejected"] } },
           include: [
             {
