@@ -270,7 +270,7 @@ exports.orderCart = async (req, res, next) => {
           await userOrder.destroy();
           return res.status(400).json("everything out of stock");
         } else {
-          return res.status(200).json("order placed");
+          return res.status(200).json("order placed", userOrder);
         }
       }
     } else {
@@ -338,7 +338,7 @@ exports.orderProd = async (req, res, next) => {
         customizationText,
       });
 
-      return res.status(200).json("order placed");
+      return res.status(200).json("order placed", orderedProd);
     }
 
     const err = new Error("something went wrong");
