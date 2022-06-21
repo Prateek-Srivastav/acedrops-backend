@@ -23,7 +23,7 @@ router.post("/orderCart", isAuth, userControllers.orderCart);
 router.post("/orderProd", isAuth, userControllers.orderProd);
 
 router.put(
-  "/changeOrderPaymentStatus",
+  "/changeOrderPaymentStatus/:orderId",
   isAuth,
   userControllers.changeOrderPaymentStatus
 );
