@@ -353,7 +353,6 @@ exports.orderProd = async (req, res, next) => {
 exports.changeOrderPaymentStatus = async (req, res, next) => {
   try {
     const { orderId } = req.params;
-    console.log(orderId + "orderIddddddddddddddddddddddddddddddddddddd");
     const order = await req.user.getOrders({ where: { id: orderId } });
 
     //check if order exists
@@ -365,12 +364,9 @@ exports.changeOrderPaymentStatus = async (req, res, next) => {
     console.log(order);
 
     if (order[0].paymentMode === "online") {
-      console.log("in online orderrrrrrrrrrrrrrrrrrrrrrrrr");
       await order[0].update({ paymentStatus: "online successful" });
     } else if (order[0].paymentMode === "pod")
       await order[0].update({ paymentStatus: "pod successful" });
-
-    console.log(order);
 
     return res.status(200).json(order);
   } catch (err) {

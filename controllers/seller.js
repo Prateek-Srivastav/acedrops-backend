@@ -118,7 +118,7 @@ exports.getPrevOrders = async (req, res, next) => {
       throw err;
     }
 
-    //return accepted or rejected products
+    //return accepted and rejected orders
 
     const result = await req.user.getProducts({
       attributes: { exclude: ["createdAt", "updatedAt"] },
