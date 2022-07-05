@@ -73,7 +73,7 @@ app.get("/privacyPolicy", (req, res, next) => {
 });
 
 app.get("/", async (req, res) => {
-  res.redirect("https://main.dzj7ccfg11rr9.amplifyapp.com");
+  res.redirect("https://www.acedrops.in");
 });
 
 shop.hasMany(product, {
