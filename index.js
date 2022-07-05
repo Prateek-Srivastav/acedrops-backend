@@ -27,7 +27,7 @@ const product_category = require("./models/product_category");
 const address = require("./models/address");
 const viewed = require("./models/viewed");
 
-app.use(express.static(__dirname + "/website/public"));
+// app.use(express.static(__dirname + "/website/public"));
 
 app.use(express.json());
 
@@ -70,6 +70,10 @@ app.use((error, req, res, next) => {
 
 app.get("/privacyPolicy", (req, res, next) => {
   res.sendFile(__dirname + "/docs/privacyPolicy.html");
+});
+
+app.get("/", async (req, res) => {
+  res.redirect("https://main.dzj7ccfg11rr9.amplifyapp.com");
 });
 
 shop.hasMany(product, {
