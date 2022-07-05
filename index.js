@@ -27,7 +27,7 @@ const product_category = require("./models/product_category");
 const address = require("./models/address");
 const viewed = require("./models/viewed");
 
-app.use(express.static(__dirname + "website/public"));
+app.use(express.static(__dirname + "/website/public"));
 
 app.use(express.json());
 
