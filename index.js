@@ -101,6 +101,13 @@ product.hasMany(imgUrl, {
   onDelete: "CASCADE",
 });
 
+product.hasMany(reviews, {
+  foreignKey: "productId",
+  constraints: false,
+  onUpdate: "CASCADE",
+  onDelete: "CASCADE",
+});
+
 imgUrl.belongsTo(product);
 
 user.belongsToMany(product, { through: fav, constraints: false });

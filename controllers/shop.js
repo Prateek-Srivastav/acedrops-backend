@@ -4,6 +4,7 @@ const validator = require("aadhaar-validator");
 const imgUrl = require("../models/imgUrl");
 const shop = require("../models/shop");
 const product = require("../models/product");
+const reviews = require("../models/reviews");
 
 exports.createShopInfo = async (req, res, next) => {
   try {
@@ -260,7 +261,10 @@ exports.viewOneShop = async (req, res, next) => {
         },
         {
           model: product,
-          include: [{ model: imgUrl, attributes: ["imageUrl"] }],
+          include: [
+            { model: imgUrl, attributes: ["imageUrl"] },
+            { model: reviews, attributes: ["rating"] },
+          ],
         },
       ],
     });
