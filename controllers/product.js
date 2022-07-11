@@ -278,7 +278,11 @@ exports.viewOneProd = async (req, res, next) => {
 
       //return average rating of the product
 
-      const count = await reviews.count({ where: { rating: { [Op.gt]: 0 } } });
+      const count = await reviews.count({
+        where: {
+          [Op.and]: [{ productId: prodId }, { rating: { [Op.gt]: 0 } }],
+        },
+      });
       const sum = await reviews.sum("rating");
       rating = sum / count;
 
