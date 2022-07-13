@@ -38,3 +38,47 @@ exports.verifyShop = async (req, res, next) => {
     next(err);
   }
 };
+
+exports.sendContactMail = async (req, res, next) => {
+  try {
+    const { firstName, lastName, phone, email, query } = req.body;
+
+    if (!email || !firstName || !lastName || !phone || !query)
+      return res.status(400).send({ message: "Please enter required fields." });
+
+    if (
+      !String(email)
+        .toLowerCase()
+        .match(
+          /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
+        )
+    )
+      return res.status(400).send({ message: " Please enter a valid email." });
+
+    if (phone.length !== 10)
+      return res
+        .status(400)
+        .send({ message: "Please enter a valid phone number." });
+
+    mailer.contactUs_mail(
+      email,
+      firstName + " " + lastName,
+      "Request received",
+      `We have received your query which states as:
+
+       ${query}
+       
+       Our team will contact you soon on ${phone} or on this email.
+
+       Regards,
+       Acedrops Team
+       `,
+      query,
+      phone
+    );
+    return res.status(200).json({ message: "Received your query" });
+  } catch (err) {
+    if (!err.statusCode) err.statusCode = 500;
+    next(err);
+  }
+};

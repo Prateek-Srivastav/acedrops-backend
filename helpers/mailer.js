@@ -39,7 +39,41 @@ exports.general_mail = (email, name, sub, text) => {
       textContent: "Hello " + name + ",\n\n" + text + "\n\nThank You!\n",
     })
     .then(console.log)
-    .catch(console.log);
+    .catch((e) => e);
+};
+
+// for contact us emails
+exports.contactUs_mail = (email, name, sub, text, query, phone) => {
+  transEmailApi
+    .sendTransacEmail({
+      sender: sender,
+      to: [{ email: email }],
+      subject: sub,
+      textContent: "Hello " + name + ",\n\n" + text,
+    })
+    .then(console.log)
+    .catch((e) => e);
+
+  transEmailApi
+    .sendTransacEmail({
+      sender: sender,
+      to: [{ email: "info.acedrops@gmail.com" }],
+      subject: "New Contact Query" + sub,
+      textContent:
+        "Hey there!" +
+        "\n\n" +
+        `Received a new request
+        Name: ${name}.` +
+        "\n\n" +
+        `Phone number: ${phone}
+
+        
+        Query is as follows: 
+      ${query}
+      `,
+    })
+    .then(console.log)
+    .catch((e) => e);
 };
 
 // module.exports = send_mail;
