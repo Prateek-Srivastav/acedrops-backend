@@ -29,6 +29,9 @@ exports.createShopInfo = async (req, res, next) => {
       address,
       fathersName,
       aadhaarNo,
+      bankName,
+      ifsc,
+      accountNum,
     } = req.body;
 
     //check if adhaar no is valid
@@ -62,6 +65,9 @@ exports.createShopInfo = async (req, res, next) => {
       address: address,
       fathersName: fathersName,
       aadhaarNo: aadhaarNo,
+      bankName,
+      ifsc,
+      accountNum,
       status: 1,
     });
     return res.status(200).json({ message: "personal information updated" });

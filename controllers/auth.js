@@ -40,7 +40,7 @@ exports.signup = async (req, res, next) => {
       upperCaseAlphabets: false,
       specialChars: false,
     });
-    mailer.send_mail(email, name, otp, "signup otp");
+    mailer.send_mail(email, name, otp, "Signup OTP");
 
     /* check for any existing otp for the same user in db
         update it or create new */
