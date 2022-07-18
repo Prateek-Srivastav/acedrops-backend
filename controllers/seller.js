@@ -32,13 +32,23 @@ exports.updateShop = async (req, res, next) => {
 
     //update information of shop
 
-    const { shopName, noOfMembers, phno, description, address } = req.body;
+    const {
+      shopName,
+      noOfMembers,
+      phno,
+      description,
+      address,
+      accountNum,
+      ifsc,
+    } = req.body;
     await Shop.update({
       shopName: shopName,
       noOfMembers: noOfMembers,
       phno: phno,
       description: description,
       address: address,
+      accountNum,
+      ifsc,
     });
     return res.status(200).json("updated successfully");
   } catch (err) {
