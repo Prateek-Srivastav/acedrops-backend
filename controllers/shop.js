@@ -257,6 +257,9 @@ exports.viewOneShop = async (req, res, next) => {
         "phno",
         "noOfMembers",
         "address",
+        "bankName",
+        "accountNum",
+        "ifsc",
       ],
       include: [
         {
