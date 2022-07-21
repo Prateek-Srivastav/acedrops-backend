@@ -9,7 +9,7 @@ apiKey.apiKey = process.env.SIB_API_KEY;
 const transEmailApi = new Sib.TransactionalEmailsApi();
 
 const sender = {
-  email: "info.acedrops@gmail.com",
+  email: "support@acedrops.in",
   name: "Acedrops",
 };
 
