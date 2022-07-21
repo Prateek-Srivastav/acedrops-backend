@@ -41,9 +41,9 @@ exports.verifyShop = async (req, res, next) => {
 
 exports.sendContactMail = async (req, res, next) => {
   try {
-    const { firstName, lastName, phone, email, query } = req.body;
+    const { name, phone, email, query } = req.body;
 
-    if (!email || !firstName || !lastName || !phone || !query)
+    if (!email || !name || !phone || !query)
       return res.status(400).send({ message: "Please enter required fields." });
 
     if (
@@ -62,7 +62,7 @@ exports.sendContactMail = async (req, res, next) => {
 
     mailer.contactUs_mail(
       email,
-      firstName + " " + lastName,
+      name,
       "Request received",
       `We have received your query which states as:
 
