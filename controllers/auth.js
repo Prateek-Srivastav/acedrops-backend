@@ -140,6 +140,13 @@ exports.signup_verify = async (req, res, next) => {
         { expiresIn: "1y" }
       );
       await Token.create({ token: refreshtoken, email: email });
+
+      mailer.shopInfoMailAdmin(
+        newUser.email,
+        newUser.name,
+        "New Shop created."
+      );
+
       res.status(200).json({
         message: "signup successful",
         name: newUser.name,
@@ -299,6 +306,8 @@ exports.googleSignup = async (req, res, next) => {
     );
 
     await Token.create({ token: refreshtoken, email: req.user.email });
+    mailer.shopInfoMailAdmin(newUser.email, newUser.name, "New Shop created.");
+
     return res.status(200).json({
       status: status,
       access_token: accesstoken,

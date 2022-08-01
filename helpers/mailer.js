@@ -137,4 +137,27 @@ exports.contactUs_mail = (email, name, sub, text, query, phone) => {
     .catch((e) => e);
 };
 
+//
+exports.shopInfoMailAdmin = (email, name, sub) => {
+  transEmailApi
+    .sendTransacEmail({
+      sender: sender,
+      to: [{ email: "info.acedrops@gmail.com" }],
+      subject: sub,
+      textContent:
+        "Hello \n\n" +
+        name +
+        "has created a shop.\n" +
+        "Email:" +
+        email +
+        ",\n\n" +
+        "Phone Number:" +
+        phone +
+        "\n\n" +
+        "\nThank You!\n",
+    })
+    .then(console.log)
+    .catch((e) => e);
+};
+
 // module.exports = send_mail;
