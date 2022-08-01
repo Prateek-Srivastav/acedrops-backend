@@ -138,7 +138,7 @@ exports.contactUs_mail = (email, name, sub, text, query, phone) => {
 };
 
 //
-exports.shopInfoMailAdmin = (email, name, sub) => {
+exports.shopInfoMailAdmin = (email, name, sub, phone) => {
   transEmailApi
     .sendTransacEmail({
       sender: sender,
