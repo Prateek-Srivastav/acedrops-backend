@@ -254,7 +254,7 @@ exports.login = async (req, res, next) => {
 exports.googleSignup = async (req, res, next) => {
   try {
     let newUser,
-      status = -1;
+      status = 0;
     const { isShop } = req.body;
 
     //find if account already exists
